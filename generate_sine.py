@@ -1,11 +1,13 @@
 import numpy as np
-from scipy.io import wavfile
+import soundfile as sf
 
-sr = 44100
-freq = 440
-duration = 5
+if __name__ == "__main__":
+    sample_rate = 44100  # in Hz
+    duration = 5.0  # in seconds
+    frequency = 440.0  # in Hz (A4 note)
 
-t = np.linspace(0, duration, sr * duration)
-y = np.sin(freq * 2 * np.pi * t)
+    t = np.linspace(0, duration, int(sample_rate * duration), endpoint=False)
+    sine_wave = 0.5 * np.sin(2 * np.pi * frequency * t)  # 0.5 to avoid clipping
 
-wavfile.write('440_sine.wav', sr, y)
+    sf.write("sine_440hz.wav", sine_wave, sample_rate)
+    print("Sine wave saved as sine_440hz.wav")
